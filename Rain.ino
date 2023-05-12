@@ -46,10 +46,12 @@ void loop() {
   buttonStateStopForward =  digitalRead(STOP_FORWARD);
   buttonStateStopReverse =  digitalRead(STOP_REVERSE);
   if(buttonStateStopForward == 0){
+    Serial.print("Forward stop is pressed ");
     isStopForward = true;
   }
 
   if(buttonStateStopReverse == 0){
+    Serial.print("Reverse stop is pressed ");
     isStopReverse = true;
   }
   // Read the rain sensor value
