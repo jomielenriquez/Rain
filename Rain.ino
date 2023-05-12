@@ -45,11 +45,11 @@ void setup() {
 void loop() {
   buttonStateStopForward =  digitalRead(STOP_FORWARD);
   buttonStateStopReverse =  digitalRead(STOP_REVERSE);
-  if(buttonStateStopForward == HIGH){
+  if(buttonStateStopForward == 0){
     isStopForward = true;
   }
 
-  if(buttonStateStopReverse == HIGH){
+  if(buttonStateStopReverse == 0){
     isStopReverse = true;
   }
   // Read the rain sensor value
