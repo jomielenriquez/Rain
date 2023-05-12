@@ -10,6 +10,8 @@ const int RAIN_OUT = 2;
 const int SOLAR_PIN = A1;
 const int DELAY = 500;
 
+const int STOP_FORWARD = 8;
+const int STOP_REVERSE = 10;
 
 // Threshold values
 const int RAIN_THRESHOLD = 500; // Change this value to adjust rain sensitivity
@@ -20,11 +22,18 @@ int rainOUT = 0;
 int prevRainOUT = rainOUT;
 
 bool isNewValue = false;
+bool isStopForward = false;
+bool isStopReverse = false;
+
+int buttonStateStopForward = 0;
+int buttonStateStopReverse = 0;
 
 void setup() {
   // Set pin modes
   pinMode(RELAY1_PIN, OUTPUT);
   pinMode(RELAY2_PIN, OUTPUT);
+  pinMode(STOP_FORWARD, INPUT);
+  pinMode(STOP_REVERSE, INPUT);
   
   //Serial 
   digitalWrite(RELAY1_PIN, HIGH);
@@ -34,6 +43,21 @@ void setup() {
 }
 
 void loop() {
+  buttonStateStopForward =  digitalRead(STOP_FORWARD);
+  buttonStateStopReverse =  digitalRead(STOP_REVERSE);
+  if(buttonStateStopForward == HIGH){
+    isStopForward = true;
+  }
+  else{
+    isStopForward = false;
+  }
+
+  if(buttonStateStopReverse == HIGH){
+    isStopReverse = true;
+  }
+  else{
+    isStopReverse = false;
+  }
   // Read the rain sensor value
   rainLevel = analogRead(RAIN_PIN);
   // value becomes zero when reach the treshold
@@ -55,11 +79,13 @@ void loop() {
     ResetMotor();
   }
   // Check the value of rainOUT
-  if(rainOUT==0){
+  if(rainOUT==0 && !isStopForward){
     Forward();
   }
   else{
-    Reverse();
+    if(!isStopReverse){
+      Reverse();
+    }
   }
 
   delay(DELAY);
