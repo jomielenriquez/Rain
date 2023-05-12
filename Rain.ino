@@ -77,12 +77,12 @@ void loop() {
   }
   // Check the value of rainOUT
   if(rainOUT==0 && !isStopForward){
-    isStopForward = false;
+    isStopReverse = false;
     Forward();
   }
   else{
     if(!isStopReverse){
-      isStopReverse = false;
+      isStopForward = false;
       Reverse();
     }
   }
