@@ -48,15 +48,9 @@ void loop() {
   if(buttonStateStopForward == HIGH){
     isStopForward = true;
   }
-  else{
-    isStopForward = false;
-  }
 
   if(buttonStateStopReverse == HIGH){
     isStopReverse = true;
-  }
-  else{
-    isStopReverse = false;
   }
   // Read the rain sensor value
   rainLevel = analogRead(RAIN_PIN);
@@ -80,10 +74,12 @@ void loop() {
   }
   // Check the value of rainOUT
   if(rainOUT==0 && !isStopForward){
+    isStopForward = false;
     Forward();
   }
   else{
     if(!isStopReverse){
+      isStopReverse = false;
       Reverse();
     }
   }
