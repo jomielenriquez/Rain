@@ -46,12 +46,12 @@ void loop() {
   buttonStateStopForward =  digitalRead(STOP_FORWARD);
   buttonStateStopReverse =  digitalRead(STOP_REVERSE);
   if(buttonStateStopForward == 0){
-    Serial.print("Forward stop is pressed ");
+    Serial.print("F pressed ");
     isStopForward = true;
   }
 
   if(buttonStateStopReverse == 0){
-    Serial.print("Reverse stop is pressed ");
+    Serial.print("R pressed ");
     isStopReverse = true;
   }
   // Read the rain sensor value
@@ -65,14 +65,14 @@ void loop() {
   else{
     isNewValue = false;
   }
-  Serial.print("Forward Button Stop: ");
+  Serial.print("FB Stop: ");
   Serial.print(buttonStateStopForward);
-  Serial.print(" Reverse Button Stop: ");
+  Serial.print(" RB Stop: ");
   Serial.print(buttonStateStopReverse);
   Serial.print(" Rain Level: ");
   Serial.print(rainLevel);
   Serial.print(" Rain output: ");
-  Serial.println(rainOUT);
+  Serial.print(rainOUT);
 
   if(isNewValue){
     ResetMotor();
@@ -80,15 +80,17 @@ void loop() {
   // Check the value of rainOUT
   if(rainOUT==0 && !isStopForward){
     isStopReverse = false;
+    Serial.print(" MOTOR FORWARD");
     Forward();
   }
   else{
     if(!isStopReverse){
       isStopForward = false;
+    Serial.print(" MOTOR REVERSE");
       Reverse();
     }
   }
-
+  Serial.println(";");
   delay(DELAY);
 }
 
