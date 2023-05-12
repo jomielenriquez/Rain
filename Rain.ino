@@ -63,8 +63,11 @@ void loop() {
   else{
     isNewValue = false;
   }
-
-  Serial.print("Rain Level: ");
+  Serial.print("Forward Button Stop: ");
+  Serial.print(buttonStateStopForward);
+  Serial.print(" Reverse Button Stop: ");
+  Serial.print(buttonStateStopReverse);
+  Serial.print(" Rain Level: ");
   Serial.print(rainLevel);
   Serial.print(" Rain output: ");
   Serial.println(rainOUT);
